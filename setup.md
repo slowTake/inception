@@ -1,5 +1,7 @@
 # Inception — Full setup guide
 
+> **Short version:** [QUICKSTART.md](QUICKSTART.md) — campus cheat sheet with copy-paste commands.
+
 Step-by-step instructions from an empty machine to a running WordPress site behind NGINX and MariaDB. Written for **Hive campus** evaluation on **older hardware** (2 GB RAM, single CPU).
 
 Replace `pnurmi` with your 42/Hive login everywhere.

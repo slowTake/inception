@@ -46,6 +46,8 @@ Persistent data lives in bind mounts under `/home/<login>/data/` (`mariadb/` and
 
 ### Quick start (inside the VM)
 
+**Campus tomorrow?** Use **[QUICKSTART.md](QUICKSTART.md)** — copy-paste checklist.
+
 ```bash
 # 1. Clone repo and enter project root
 cd ~/inception
@@ -84,7 +86,8 @@ Set `LOGIN=yourlogin` on every `make` invocation if it differs from the Makefile
 
 ### Full setup guide
 
-See **[setup.md](setup.md)** for VM creation, Alpine install, SSH, Docker install, MariaDB/WordPress/Nginx configuration, and evaluation commands.
+- **[QUICKSTART.md](QUICKSTART.md)** — short campus / manual install cheat sheet
+- **[setup.md](setup.md)** — complete step-by-step (VM → MariaDB → WordPress → NGINX)
 
 ### Additional documentation
 
