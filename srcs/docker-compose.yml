@@ -1,0 +1,75 @@
+volumes:
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/mariadb
+
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/wordpress
+
+networks:
+  network:
+    name: docker-network
+    driver: bridge
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:inception
+    restart: always
+    env_file: .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - network
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping --protocol=tcp --host=localhost -u$$WORDPRESS_DATABASE_USER --password=$$WORDPRESS_DATABASE_USER_PASSWORD || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 40s
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress:inception
+    restart: always
+    env_file: .env
+    networks:
+      - network
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "test", "-f", "/var/www/html/wp-login.php"]
+      interval: 15s
+      timeout: 10s
+      retries: 12
+      start_period: 60s
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    image: nginx:inception
+    restart: always
+    env_file: .env
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    networks:
+      - network
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html

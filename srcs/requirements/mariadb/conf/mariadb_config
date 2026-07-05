@@ -1,0 +1,12 @@
+[mysqld]
+datadir = /var/lib/mysql
+basedir = /usr
+socket  = /run/mysqld/mysqld.sock
+bind_address = 0.0.0.0
+port = 3306
+user = mysql
+
+# Tuned for low-RAM evaluation hosts
+innodb_buffer_pool_size = 64M
+max_connections = 40
+performance_schema = OFF
