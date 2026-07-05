@@ -111,4 +111,3 @@ AI (Cursor) was used to:
 - Apply low-resource tuning for Hive evaluation hardware
 
 All generated files were reviewed against the subject constraints (no `latest` tag, no `tail -f` PID 1 hacks, TLS 1.2/1.3 only, mandatory `.env`, bind mounts under `/home/<login>/data`).
-# inception
